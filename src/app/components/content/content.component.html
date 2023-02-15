@@ -7,9 +7,9 @@
           src="assets/example_avatar.png"
         />
         <div class="main-info__employee__who__info">
-          <div class="main-info__employee__who__info__name">
+          <h2 class="main-info__employee__who__info__name">
             Иван Егорович Сергеев
-          </div>
+          </h2>
           <div class="main-info__employee__who__info__job">
             Технолог КВР-342
           </div>
@@ -43,7 +43,79 @@
     </div>
   </div>
   <div class="analytics">
-    <div class="analytics__workspace"></div>
-    <div class="analytics__shift-log"></div>
+    <div class="analytics__workspace">
+      <div class="analytics__header">
+        <div class="title-block">
+          <h2 class="analytics__title">Аналитика по рабочему пространству</h2>
+          <h3 class="analytics__subtitle">Установка КВР-342</h3>
+        </div>
+        <div class="settings-block">
+          <button class="settings-block__setting-button">
+            <img src="assets/svg/gear.svg" alt="" />
+            <p>Настроить</p>
+          </button>
+          <button class="settings-block__more-button">
+            <img src="assets/svg/kebab.svg" alt="" />
+          </button>
+          <button class="settings-block__openInNew-button">
+            <img src="assets/svg/openInNew.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="analytics__workspace__cards">
+        <app-analytic-card></app-analytic-card>
+      </div>
+    </div>
+    <div class="analytics__shift-log">
+      <div class="analytics__header">
+        <div class="title-block">
+          <h2 class="analytics__title">Журнал смен</h2>
+          <h3 class="analytics__subtitle">Блок КВР-342</h3>
+        </div>
+        <div class="settings-block">
+          <button class="settings-block__setting-button">
+            <img src="assets/svg/upload.svg" alt="" />
+            <p>Выгрузить</p>
+          </button>
+        </div>
+      </div>
+      <table class="shift-log-table">
+        <tr id="column-names">
+          <th>Дата выхода на смену</th>
+          <th>Сотрудник</th>
+          <th>Должность</th>
+          <th>Статус</th>
+          <th>Дата завершения</th>
+        </tr>
+        <tr>
+          <td>16.03.2022</td>
+          <td>Елисеева К. В.</td>
+          <td>Технолог</td>
+          <td>Без происшествий</td>
+          <td>28.03.2022</td>
+        </tr>
+        <tr>
+          <td>25.08.2021</td>
+          <td>Елисеева К. В.</td>
+          <td>Технолог</td>
+          <td>Без происшествий</td>
+          <td>30.08.2021</td>
+        </tr>
+        <tr>
+          <td>01.06.2021</td>
+          <td>Васильев П. З.</td>
+          <td>Оператор</td>
+          <td>Замечено нарушение</td>
+          <td>25.06.2021</td>
+        </tr>
+        <tr>
+          <td>12.12.2020</td>
+          <td>Иванов К. В.</td>
+          <td>Инженер</td>
+          <td>Без происшествий</td>
+          <td>21.12.2020</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

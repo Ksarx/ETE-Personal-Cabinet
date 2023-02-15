@@ -8,6 +8,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ContentComponent } from './components/content/content.component';
 import { CardComponent } from './components/content/components/card/card.component';
 import { CardsListComponent } from './components/content/components/cards-list/cards-list.component';
+import { AnalyticCardComponent } from './components/content/components/analytic-card/analytic-card.component';
+import { AnalyticCardListComponent } from './components/content/components/analytic-card-list/analytic-card-list.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { CardsListComponent } from './components/content/components/cards-list/c
     SidebarComponent,
     ContentComponent,
     CardComponent,
-    CardsListComponent
+    CardsListComponent,
+    AnalyticCardComponent,
+    AnalyticCardListComponent
   ],
   imports: [
     BrowserModule,

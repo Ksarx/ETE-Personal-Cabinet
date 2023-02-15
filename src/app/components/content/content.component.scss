@@ -133,6 +133,7 @@
         border-radius: 100px;
         transform: translateX(0);
         transition: transform 300ms;
+        color: $control-primary-typo;
       }
       .main-info__card-controls__switch-button__label__span {
         position: relative;
@@ -157,4 +158,98 @@
 
 .analytics {
   background-color: $bg-main;
+  padding: {
+    top: 50px;
+    left: 40px;
+    right: 40px;
+  }
+}
+
+.analytics__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.analytics__title {
+  color: $typo-primary;
+  font-size: $typo-primary-size;
+  font-weight: $typo-primary-weight;
+}
+
+.analytics__subtitle {
+  margin-top: 5px;
+  color: $typo-secondary;
+  font-size: $typo-secondary-size;
+  font-weight: $typo-secondary-weight;
+}
+
+.settings-block {
+  display: flex;
+  column-gap: 10px;
+
+  button {
+    border: none;
+    border-radius: 4px;
+    background-color: $control-ghost-bg;
+    color: $control-ghost-typo;
+  }
+}
+
+.settings-block__setting-button {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px;
+}
+
+.settings-block__more-button {
+  width: 32px;
+}
+
+.settings-block__openInNew-button {
+  width: 32px;
+}
+
+.analytics__workspace__cards {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 25px;
+}
+
+.analytics__shift-log {
+  margin-top: 50px;
+}
+
+.shift-log-table {
+  color: $typo-primary;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 30px;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 140px;
+}
+
+.shift-log-table td,
+.shift-log-table th {
+  padding: 8px;
+}
+
+.shift-log-table tr:nth-child(odd) {
+  background-color: $bg-stripe;
+}
+
+#column-names {
+  background-color: $bg-main;
+  border-bottom: 1px solid $bg-border;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.shift-log-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
 }

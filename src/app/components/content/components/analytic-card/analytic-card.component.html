@@ -1,0 +1,44 @@
+<div class="analytic-card">
+  <div class="analytic-card__head">
+    <h3 class="analytic-card__head__title">Количество инцидентов</h3>
+    <button class="drag-button">
+      <img src="assets/svg/draggable.svg" alt="" />
+    </button>
+  </div>
+  <div class="analytic-card__service">
+    <div class="three-state-switch">
+      <input
+        type="radio"
+        id="radio-1"
+        name="switch-three"
+        value="day"
+        checked="checked"
+      />
+      <label for="radio-1">День</label>
+      <input type="radio" id="radio-2" name="switch-three" value="week" />
+      <label for="radio-2">Неделя</label>
+      <input type="radio" id="radio-3" name="switch-three" value="month" />
+      <label for="radio-3">Месяц</label>
+    </div>
+    <button class="more-button">Подробнее</button>
+  </div>
+  <div class="analytic-card__chart">
+    <div class="chart">
+      <canvas id="MyChart">{{ chart }}</canvas>
+    </div>
+    <div class="legend">
+      <div class="legend__item">
+        <div class="circle success"></div>
+        <p>Закрытые</p>
+      </div>
+      <div class="legend__item">
+        <div class="circle warning"></div>
+        <p>Активные</p>
+      </div>
+      <div class="legend__item">
+        <div class="circle black"></div>
+        <p>Новые</p>
+      </div>
+    </div>
+  </div>
+</div>
