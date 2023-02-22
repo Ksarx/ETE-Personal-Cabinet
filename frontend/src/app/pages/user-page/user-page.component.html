@@ -57,21 +57,32 @@
           </button>
         </div>
       </div>
-      <div class="analytics__workspace__cards">
-        <app-incidents-card
-          *ngIf="workspace"
-          [incidents]="workspace.incidents"
-        ></app-incidents-card>
-        <app-kpi-card *ngIf="workspace" [kps]="workspace.kps"></app-kpi-card>
-        <app-events-card
-          *ngIf="workspace"
-          [events]="workspace.events"
-        ></app-events-card>
-        <app-lab-test-card
-          *ngIf="workspace"
-          [lab_tests]="workspace.lab_tests"
-        ></app-lab-test-card>
-        <app-add-card *ngIf="workspace"></app-add-card>
+      <div
+        cdkDropList
+        class="analytics__workspace__cards"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div *ngFor="let card of cards">
+          <div *ngIf="workspace" [ngSwitch]="card">
+            <app-incidents-card
+              *ngSwitchCase="'incidents'"
+              [incidents]="workspace.incidents"
+            ></app-incidents-card>
+            <app-kpi-card
+              *ngSwitchCase="'kps'"
+              [kps]="workspace.kps"
+            ></app-kpi-card>
+            <app-events-card
+              *ngSwitchCase="'events'"
+              [events]="workspace.events"
+            ></app-events-card>
+            <app-lab-test-card
+              *ngSwitchCase="'lab_tests'"
+              [lab_tests]="workspace.lab_tests"
+            ></app-lab-test-card>
+          </div>
+        </div>
+        <app-add-card></app-add-card>
       </div>
     </div>
     <div class="analytics__shift-log">
