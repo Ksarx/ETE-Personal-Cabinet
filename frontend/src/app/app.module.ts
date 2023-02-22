@@ -17,6 +17,7 @@ import { LabTestCardComponent } from './components/lab-test-card/lab-test-card.c
 import { AddCardComponent } from './components/add-card/add-card.component';
 import { AddUserCardComponent } from './components/add-user-card/add-user-card.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AddCardComponent,
     AddUserCardComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, DragDropModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    DragDropModule,
+    PortalModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

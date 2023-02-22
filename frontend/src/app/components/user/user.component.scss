@@ -7,6 +7,19 @@
   transition: 100ms;
 }
 
+.user-circle2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: 100ms;
+  color: $typo-primary;
+  font-size: 10px;
+  font-weight: 600;
+}
+
 .user-circle:hover {
   outline: 2px solid $bg-link;
 }

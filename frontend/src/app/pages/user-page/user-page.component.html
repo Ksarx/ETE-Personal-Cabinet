@@ -52,7 +52,11 @@
           <button class="settings-block__more-button">
             <img src="assets/svg/kebab.svg" alt="" />
           </button>
-          <button class="settings-block__openInNew-button">
+
+          <button
+            (click)="this.showPortal = true"
+            class="settings-block__openInNew-button"
+          >
             <img src="assets/svg/openInNew.svg" alt="" />
           </button>
         </div>

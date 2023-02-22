@@ -1,5 +1,6 @@
 <a [routerLink]="['/users', user.id]">
   <img
+    *ngIf="user.imageUrl; else noAvatar"
     [src]="user.imageUrl"
     class="user-circle"
     alt=""
@@ -7,4 +8,17 @@
       'current-user': isCurrent
     }"
   />
+  <ng-template #noAvatar>
+    <div
+      class="user-circle2"
+      [ngStyle]="{
+        backgroundColor: getColor()
+      }"
+      [ngClass]="{
+        'current-user': isCurrent
+      }"
+    >
+      {{ user.name.slice(0, 1) }}{{ user.patronymic.slice(0, 1) }}
+    </div>
+  </ng-template>
 </a>

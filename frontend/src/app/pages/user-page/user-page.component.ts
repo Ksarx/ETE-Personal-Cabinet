@@ -14,7 +14,8 @@ import { WorkspaceService } from 'src/app/services/workspace.service';
 export class UserPageComponent implements OnInit {
   user: IUser | undefined;
   workspace: IWorkspace | undefined;
-  cards = ['incidents', 'events', 'lab_tests', 'kps'];
+  cards: string[] = [];
+  showPortal = false;
 
   constructor(
     private usersService: UsersService,
@@ -39,7 +40,18 @@ export class UserPageComponent implements OnInit {
     this.workspaceService
       .getWorkspaceByUserId(id)
       .subscribe((workspace: IWorkspace) => {
-        console.log(workspace);
+        if (workspace.incidents.length != 0) {
+          this.cards.push('incidents');
+        }
+        if (workspace.events.length != 0) {
+          this.cards.push('events');
+        }
+        if (workspace.lab_tests.length != 0) {
+          this.cards.push('lab_tests');
+        }
+        if (workspace.kps.length != 0) {
+          this.cards.push('kps');
+        }
         this.workspace = workspace;
       });
   }
