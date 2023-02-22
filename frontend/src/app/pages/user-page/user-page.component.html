@@ -1,0 +1,108 @@
+<div class="content">
+  <div class="main-info">
+    <div class="main-info__employee">
+      <div class="main-info__employee__who">
+        <img class="main-info__employee__who__avatar" [src]="user?.imageUrl" />
+        <div class="main-info__employee__who__info">
+          <h2 class="main-info__employee__who__info__name">
+            {{ user?.name }} {{ user?.patronymic }} {{ user?.surname }}
+          </h2>
+          <div class="main-info__employee__who__info__job">
+            {{ user?.work }} {{ user?.workspace?.name }}
+          </div>
+        </div>
+      </div>
+      <button class="main-info__employee__shift-in-button">
+        Заступить на смену
+      </button>
+    </div>
+    <div class="main-info__card-controls">
+      <div class="main-info__card-controls__switch-button">
+        <input
+          class="main-info__card-controls__switch-button__checkbox"
+          type="checkbox"
+        />
+        <label class="main-info__card-controls__switch-button__label">
+          <span class="main-info__card-controls__switch-button__label__span"
+            >Сегодня</span
+          ></label
+        >
+      </div>
+      <button class="main-info__card-controls__calendar-button">
+        <img src="assets/svg/calendar1.svg" alt="" />
+      </button>
+    </div>
+    <div class="main-info__cards">
+      <app-card *ngFor="let card of user?.cards" [card]="card"></app-card>
+      <app-add-user-card></app-add-user-card>
+    </div>
+  </div>
+  <div class="analytics">
+    <div class="analytics__workspace">
+      <div class="analytics__header">
+        <div class="title-block">
+          <h2 class="analytics__title">Аналитика по рабочему пространству</h2>
+          <h3 class="analytics__subtitle">Установка {{ workspace?.name }}</h3>
+        </div>
+        <div class="settings-block">
+          <button class="settings-block__setting-button">
+            <img src="assets/svg/gear.svg" alt="" />
+            <p>Настроить</p>
+          </button>
+          <button class="settings-block__more-button">
+            <img src="assets/svg/kebab.svg" alt="" />
+          </button>
+          <button class="settings-block__openInNew-button">
+            <img src="assets/svg/openInNew.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      <div class="analytics__workspace__cards">
+        <app-incidents-card
+          *ngIf="workspace"
+          [incidents]="workspace.incidents"
+        ></app-incidents-card>
+        <app-kpi-card *ngIf="workspace" [kps]="workspace.kps"></app-kpi-card>
+        <app-events-card
+          *ngIf="workspace"
+          [events]="workspace.events"
+        ></app-events-card>
+        <app-lab-test-card
+          *ngIf="workspace"
+          [lab_tests]="workspace.lab_tests"
+        ></app-lab-test-card>
+        <app-add-card *ngIf="workspace"></app-add-card>
+      </div>
+    </div>
+    <div class="analytics__shift-log">
+      <div class="analytics__header">
+        <div class="title-block">
+          <h2 class="analytics__title">Журнал смен</h2>
+          <h3 class="analytics__subtitle">Блок {{ workspace?.name }}</h3>
+        </div>
+        <div class="settings-block">
+          <button class="settings-block__setting-button">
+            <img src="assets/svg/upload.svg" alt="" />
+            <p>Выгрузить</p>
+          </button>
+        </div>
+      </div>
+      <table class="shift-log-table">
+        <tr id="column-names">
+          <th>Дата выхода на смену</th>
+          <th>Сотрудник</th>
+          <th>Должность</th>
+          <th>Статус</th>
+          <th>Дата завершения</th>
+        </tr>
+        <tr *ngFor="let row of workspace?.shift_logs">
+          <td>{{ row.shift_date }}</td>
+          <td>{{ row.employee }}</td>
+          <td>{{ row.post }}</td>
+          <td>{{ row.status }}</td>
+          <td>{{ row.end_date }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

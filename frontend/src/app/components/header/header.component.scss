@@ -15,6 +15,15 @@
   height: 60px;
 }
 
+.header__title {
+  color: $typo-primary;
+  transition: 100ms;
+}
+
+.header__title:hover {
+  color: $typo-secondary;
+}
+
 .header__buttons {
   display: flex;
   column-gap: 28px;

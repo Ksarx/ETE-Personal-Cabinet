@@ -1,0 +1,10 @@
+<a [routerLink]="['/users', user.id]">
+  <img
+    [src]="user.imageUrl"
+    class="user-circle"
+    alt=""
+    [ngClass]="{
+      'current-user': isCurrent
+    }"
+  />
+</a>

@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card__main">
+    <p class="card__main__title">
+      {{ card.title }}
+    </p>
+    <div class="card__main__circle-progress">
+      <span class="progress-value">{{ card.value }}</span>
+    </div>
+  </div>
+  <p class="card__updated">
+    Последнее обновление<br />
+    в {{ card.updatedAt }}
+  </p>
+</div>

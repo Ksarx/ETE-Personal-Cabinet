@@ -1,0 +1,20 @@
+<div class="events-card">
+  <div class="events-card__head">
+    <h3 class="events-card__head__title">Лента событий</h3>
+    <button class="drag-button">
+      <img src="assets/svg/draggable.svg" alt="" />
+    </button>
+  </div>
+  <div class="events-card__service">
+    <button class="more-button">Подробнее</button>
+  </div>
+  <div class="events-card__feed">
+    <div *ngFor="let item of events" class="events-card__feed__item">
+      <h4 class="title">{{ item.description }}</h4>
+      <div class="subtitle">
+        <p class="sb">{{ item.where }}</p>
+        <p class="sb">{{ item.createdAt.slice(0, 10) }}</p>
+      </div>
+    </div>
+  </div>
+</div>

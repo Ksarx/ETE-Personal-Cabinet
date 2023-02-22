@@ -1,0 +1,92 @@
+@import "../../../vars.scss";
+
+.events-card {
+  display: flex;
+  flex-direction: column;
+  height: 415px;
+  border-radius: 4px;
+  border: 1px solid $bg-border;
+}
+
+.events-card__head {
+  padding: {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.events-card__head__title {
+  color: $typo-primary;
+  font-size: $typo-secondary-size;
+  font-weight: $typo-primary-weight;
+}
+
+.drag-button {
+  background-color: $control-ghost-bg;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+}
+
+.events-card__service {
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $bg-border;
+  padding-bottom: 15px;
+}
+
+.more-button {
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+  font-weight: 400;
+  font-size: 12px;
+  color: $control-primary-typo;
+  background-color: $control-primary-bg;
+  border: none;
+  border-radius: 99px 99px 99px 99px;
+}
+
+.events-card__feed {
+  overflow-y: scroll;
+  max-height: 291px;
+  display: flex;
+  flex-direction: column;
+}
+
+.events-card__feed__item {
+  padding: {
+    left: 20px;
+    right: 20px;
+    top: 13px;
+    bottom: 13px;
+  }
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $bg-border;
+}
+
+.title {
+  color: $typo-primary;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: space-between;
+  color: $typo-secondary;
+  font-size: 14px;
+  font-weight: 400;
+}

@@ -5,28 +5,36 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ContentComponent } from './components/content/content.component';
-import { CardComponent } from './components/content/components/card/card.component';
-import { CardsListComponent } from './components/content/components/cards-list/cards-list.component';
-import { AnalyticCardComponent } from './components/content/components/analytic-card/analytic-card.component';
-import { AnalyticCardListComponent } from './components/content/components/analytic-card-list/analytic-card-list.component';
+import { CardComponent } from './components/card/card.component';
+import { IncidentCardComponent } from './components/incidents-card/incidents-card.component';
+import { UserComponent } from './components/user/user.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { KpiCardComponent } from './components/kpi-card/kpi-card.component';
+import { EventsCardComponent } from './components/events-card/events-card.component';
+import { LabTestCardComponent } from './components/lab-test-card/lab-test-card.component';
+import { AddCardComponent } from './components/add-card/add-card.component';
+import { AddUserCardComponent } from './components/add-user-card/add-user-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidebarComponent,
-    ContentComponent,
     CardComponent,
-    CardsListComponent,
-    AnalyticCardComponent,
-    AnalyticCardListComponent
+    IncidentCardComponent,
+    UserComponent,
+    UserPageComponent,
+    HomePageComponent,
+    KpiCardComponent,
+    EventsCardComponent,
+    LabTestCardComponent,
+    AddCardComponent,
+    AddUserCardComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

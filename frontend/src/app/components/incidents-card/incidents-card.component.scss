@@ -1,0 +1,167 @@
+@import "../../../vars.scss";
+
+.incidents-card {
+  display: flex;
+  flex-direction: column;
+  height: 415px;
+  border-radius: 4px;
+  border: 1px solid $bg-border;
+}
+
+.incidents-card__head {
+  padding: {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.incidents-card__head__title {
+  color: $typo-primary;
+  font-size: $typo-secondary-size;
+  font-weight: $typo-primary-weight;
+}
+
+.drag-button {
+  background-color: $control-ghost-bg;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+}
+
+.incidents-card__service {
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $bg-border;
+  padding-bottom: 15px;
+}
+
+.three-state-switch {
+  display: flex;
+}
+
+.three-state-switch input {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.three-state-switch label {
+  background-color: $bg-main;
+  color: $typo-primary;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  padding: 8px 16px;
+  margin-right: -1px;
+  border: 1px solid $bg-border;
+  transition: all 0.1s ease-in-out;
+}
+
+.three-state-switch label:hover {
+  cursor: pointer;
+}
+
+.three-state-switch input:checked + label {
+  background-color: $control-primary-bg;
+}
+
+.three-state-switch label:first-of-type {
+  border-radius: 99px 0 0 99px;
+}
+
+.three-state-switch label:last-of-type {
+  border-radius: 0 99px 99px 0;
+}
+
+.more-button {
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+  font-weight: 400;
+  font-size: 12px;
+  color: $control-primary-typo;
+  background-color: $control-primary-bg;
+  border: none;
+  border-radius: 99px 99px 99px 99px;
+}
+
+.incidents-card__chart {
+  display: flex;
+  justify-content: space-between;
+  padding: {
+    top: 30px;
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+  }
+}
+
+.chart {
+  max-height: 231px;
+  max-width: 231px;
+}
+
+.number {
+  font-size: 12px;
+  font-weight: 400;
+  color: $typo-secondary;
+  text-align: center;
+  position: relative;
+  top: 35%;
+  left: -55%;
+
+  span {
+    font-weight: 700;
+    font-size: 32px;
+    color: $typo-primary;
+  }
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.legend__item {
+  color: $typo-secondary;
+  font-weight: 400;
+
+  align-items: center;
+  display: flex;
+  gap: 5px;
+}
+
+.circle {
+  height: 8px;
+  width: 8px;
+  border-radius: 16px;
+}
+
+.success {
+  background-color: $bg-success;
+}
+
+.warning {
+  background-color: $bg-warning;
+}
+
+.black {
+  background-color: $bg-secondary;
+}
