@@ -1,1 +1,1 @@
-export const BASE_API_URL = process.env.API_URL;
+export const BASE_API_URL = 'https://level-rate-production.up.railway.app';
