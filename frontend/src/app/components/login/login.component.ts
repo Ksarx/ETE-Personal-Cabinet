@@ -22,9 +22,7 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.user.id, this.password).subscribe((data) => {
-      console.log(data);
       this.router.navigate(['/users', this.user.id]);
-      
     });
   }
 }

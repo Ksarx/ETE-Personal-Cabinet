@@ -14,6 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Workspace } from 'src/workspace/entities/workspace.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { WorkDataDTo } from './dto/work-data.dto';
 
 @Controller('users')
 export class UserController {
@@ -45,7 +46,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get(':id/workspace')
-  findUserWorkspace(@Param('id') id: string): Promise<Workspace> {
+  findUserWorkspace(@Param('id') id: string): Promise<WorkDataDTo> {
     return this.userService.findUserWorkspace(+id);
   }
 }

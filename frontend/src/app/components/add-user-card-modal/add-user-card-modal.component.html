@@ -1,0 +1,37 @@
+<div class="add-user-card">
+  <h2>Добавить метрику эффективности</h2>
+  <div class="text-field">
+    <label class="text-field__label" for="login">Название</label>
+    <input
+      class="text-field__input"
+      type="text"
+      name="title"
+      id="login"
+      placeholder="Введите название"
+      [(ngModel)]="title"
+    />
+  </div>
+  <div class="text-field">
+    <label class="text-field__label" for="login">Значение</label>
+    <input
+      class="text-field__input"
+      type="text"
+      name="value"
+      id="value"
+      placeholder="В % или через /"
+      [(ngModel)]="value"
+    />
+  </div>
+  <div class="check-field">
+    <input
+      type="checkbox"
+      class="custom-checkbox"
+      id="notify"
+      name="happy"
+      value="yes"
+      [(ngModel)]="isNotify"
+    />
+    <label for="notify">Уведомлять?</label>
+  </div>
+  <button (click)="submit()" class="add-card__button">Добавить</button>
+</div>

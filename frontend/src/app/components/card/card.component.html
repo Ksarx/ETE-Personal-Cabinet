@@ -7,8 +7,11 @@
       <span class="progress-value">{{ card.value }}</span>
     </div>
   </div>
-  <p class="card__updated">
-    Последнее обновление<br />
-    в {{ card.updatedAt }}
-  </p>
+  <div class="bottom">
+    <p class="card__updated">
+      Последнее обновление<br />
+      в {{ card.updatedAt.toString().slice(11, 16) }}
+    </p>
+    <button *ngIf="card.isNotify" class="notify">Напомнить</button>
+  </div>
 </div>

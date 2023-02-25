@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { IIncident as IIncident } from 'src/app/models/incidents';
 import { CardsService } from 'src/app/services/cards.service';
@@ -12,6 +19,7 @@ Chart.register(...registerables);
 export class IncidentCardComponent implements OnInit {
   constructor(private cardsService: CardsService) {}
   @Input() workspaceId: number;
+
   incidents: IIncident[] = [];
   chart: any;
   mode = 'day';

@@ -36,7 +36,7 @@
     </div>
     <div class="main-info__cards">
       <app-card *ngFor="let card of cards" [card]="card"></app-card>
-      <app-add-user-card></app-add-user-card>
+      <app-add-user-card [userId]="user.id"></app-add-user-card>
     </div>
   </div>
   <ng-template #noUser>
@@ -50,7 +50,11 @@
           <h3 class="analytics__subtitle">Установка {{ workspace.name }}</h3>
         </div>
         <div class="settings-block">
-          <button class="settings-block__setting-button">
+          <button
+            *ngIf="active_cards.length != 0"
+            (click)="openSettings()"
+            class="settings-block__setting-button"
+          >
             <img src="assets/svg/gear.svg" alt="" />
             <p>Настроить</p>
           </button>
@@ -64,11 +68,29 @@
         </div>
       </div>
       <div class="analytics__workspace__cards">
-        <app-incidents-card [workspaceId]="workspace.id"></app-incidents-card>
-        <app-kpi-card [workspaceId]="workspace.id"></app-kpi-card>
-        <app-events-card [workspaceId]="workspace.id"></app-events-card>
-        <app-lab-test-card [workspaceId]="workspace.id"></app-lab-test-card>
-        <app-add-card></app-add-card>
+        <div *ngFor="let card of active_cards" [ngSwitch]="card">
+          <app-incidents-card
+            [workspaceId]="workspace.id"
+            *ngSwitchCase="'incidents'"
+          ></app-incidents-card>
+          <app-kpi-card
+            [workspaceId]="workspace.id"
+            *ngSwitchCase="'kps'"
+          ></app-kpi-card>
+          <app-events-card
+            [workspaceId]="workspace.id"
+            *ngSwitchCase="'events'"
+          ></app-events-card>
+          <app-lab-test-card
+            [workspaceId]="workspace.id"
+            *ngSwitchCase="'lab_tests'"
+          ></app-lab-test-card>
+        </div>
+        <app-add-card
+          *ngIf="active_cards.length != 4"
+          [existCards]="active_cards"
+          (dialogEvent)="receiveCard($event)"
+        ></app-add-card>
       </div>
     </div>
     <div class="analytics__shift-log">
@@ -87,11 +109,7 @@
           </button>
         </div>
       </div>
-      <table
-        *ngIf="workspace.shift_logs.length != 0"
-        class="shift-log-table"
-        id="shift-log"
-      >
+      <table class="shift-log-table" id="shift-log">
         <tr id="column-names">
           <th>Дата выхода на смену</th>
           <th>Сотрудник</th>

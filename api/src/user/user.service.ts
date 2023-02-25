@@ -8,6 +8,7 @@ import { WorkspaceService } from 'src/workspace/workspace.service';
 import { Workspace } from 'src/workspace/entities/workspace.entity';
 import { JwtPayload } from 'src/auth/interfaces/payload.interface';
 import { hash, compare } from 'bcrypt';
+import { WorkDataDTo } from './dto/work-data.dto';
 
 @Injectable()
 export class UserService {
@@ -53,12 +54,17 @@ export class UserService {
   async remove(id: number): Promise<any> {
     return this.userRepository.delete(id);
   }
-  async findUserWorkspace(id: number): Promise<Workspace> {
-    const user = this.userRepository.findOne({
+  async findUserWorkspace(id: number): Promise<WorkDataDTo> {
+    const user = await this.userRepository.findOne({
       where: { id: id },
-      relations: ['workspace'],
+      relations: ['workspace', 'cards'],
     });
-    return this.workspaceService.findOne((await user).workspace.id);
+    const workspace = await this.workspaceService.findOne(user.workspace.id);
+    const dto: WorkDataDTo = {
+      user: user,
+      workspace: workspace,
+    };
+    return dto;
   }
 
   async findByPayload(payload: JwtPayload): Promise<User> {

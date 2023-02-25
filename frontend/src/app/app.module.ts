@@ -26,6 +26,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AddCardModalComponent } from './components/add-card-modal/add-card-modal.component';
+import { DeleteCardsModalComponent } from './components/delete-cards-modal/delete-cards-modal.component';
+import { AddUserCardModalComponent } from './components/add-user-card-modal/add-user-card-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     AddCardComponent,
     AddUserCardComponent,
     LoginComponent,
+    AddCardModalComponent,
+    DeleteCardsModalComponent,
+    AddUserCardModalComponent,
   ],
   imports: [
     BrowserModule,

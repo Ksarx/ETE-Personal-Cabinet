@@ -18,11 +18,19 @@ export class CardComponent implements OnInit {
       let degree = Math.round(
         (parseFloat(((100 * vals[0]) / vals[1]).toFixed(1)) / 100) * 360
       );
-      this.degStyle = `conic-gradient(#24c38e ${degree}deg, #161a1d 0deg)`;
+      if (this.card.isNotify) {
+        this.degStyle = `conic-gradient(#f2c94c ${degree}deg, #161a1d 0deg)`;
+      } else {
+        this.degStyle = `conic-gradient(#24c38e ${degree}deg, #161a1d 0deg)`;
+      }
     } else {
       let vals: any = this.card.value.split('%');
       let degree = ((vals[0] / 100) * 360).toFixed(0);
-      this.degStyle = `conic-gradient(#24c38e ${degree}deg, #161a1d 0deg)`;
+      if (this.card.isNotify) {
+        this.degStyle = `conic-gradient(#f2c94c ${degree}deg, #161a1d 0deg)`;
+      } else {
+        this.degStyle = `conic-gradient(#24c38e ${degree}deg, #161a1d 0deg)`;
+      }
     }
   }
 

@@ -41,7 +41,7 @@ export class KpiCardComponent implements OnInit {
 
   createChart() {
     let values = this.kps.map((k) => k.kpi);
-    let dates = this.kps.map((d) => d.date);
+    let dates = this.kps.map((d) => d.date.toString().slice(5, 7));
     this.chart = new Chart('Kpi', {
       type: 'line',
       data: {

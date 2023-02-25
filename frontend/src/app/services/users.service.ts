@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError, map } from 'rxjs';
 import { IUser } from '../models/user';
+import { PostUserCard } from '../models/postUserCard';
+import { IUserCard } from '../models/user-card';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +29,14 @@ export class UsersService {
       map((user: IUser) => user),
       catchError((err) => throwError(err))
     );
+  }
+
+  postUserCard(userId: string, dto: PostUserCard): Observable<IUserCard> {
+    return this.http
+      .post<IUserCard>('api/users/' + userId + '/cards', dto)
+      .pipe(
+        map((card: IUserCard) => card),
+        catchError((err) => throwError(err))
+      );
   }
 }

@@ -25,7 +25,7 @@ export class WorkspaceService {
   async findOne(id: number): Promise<Workspace> {
     const workspace = this.workspaceRepository.findOne({
       where: { id: id },
-      relations: ['users', 'shift_logs'],
+      relations: ['shift_logs'],
     });
     if (!workspace) {
       throw new BadRequestException('Установка не найдена');

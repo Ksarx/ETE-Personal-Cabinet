@@ -126,9 +126,9 @@
     right: 0;
     width: 70px;
     display: flex;
+    z-index: 3;
     align-items: center;
     justify-content: center;
-    z-index: 3;
     pointer-events: none;
   }
 
