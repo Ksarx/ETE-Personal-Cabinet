@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card__main">
+    <p class="card__main__title">
+      {{ card.title }}
+    </p>
+    <div class="card__main__circle-progress" [style.background]="degStyle">
+      <span class="progress-value">{{ card.value }}</span>
+    </div>
+  </div>
+  <div class="bottom">
+    <p class="card__updated">
+      Последнее обновление<br />
+      в {{ card.updatedAt.toString().slice(11, 16) }}
+    </p>
+    <button *ngIf="card.isNotify" class="notify">Напомнить</button>
+  </div>
+</div>

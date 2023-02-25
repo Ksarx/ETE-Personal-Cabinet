@@ -1,0 +1,15 @@
+<div class="modal-login">
+  <h1 class="modal-login__title">Добро пожаловать, {{ user.name }}</h1>
+  <form class="modal-login__form">
+    <input
+      [(ngModel)]="password"
+      class="modal-login__form__password"
+      type="password"
+      name="pass"
+      placeholder="Введите пароль"
+    />
+    <button (click)="login()" class="modal-login__submit" mat-dialog-close>
+      Вход
+    </button>
+  </form>
+</div>

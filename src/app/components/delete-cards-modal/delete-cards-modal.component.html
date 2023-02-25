@@ -1,0 +1,31 @@
+<div class="delete-modal">
+  <h2>Удалить виджет</h2>
+  <button
+    *ngIf="existCards.includes('incidents')"
+    class="delete-modal__item"
+    (click)="delete_card('incidents')"
+  >
+    Количество инцидентов
+  </button>
+  <button
+    *ngIf="existCards.includes('kps')"
+    class="delete-modal__item"
+    (click)="delete_card('kps')"
+  >
+    Показатель КПЭ
+  </button>
+  <button
+    *ngIf="existCards.includes('events')"
+    class="delete-modal__item"
+    (click)="delete_card('events')"
+  >
+    Лента событий
+  </button>
+  <button
+    *ngIf="existCards.includes('lab_tests')"
+    class="delete-modal__item"
+    (click)="delete_card('lab_tests')"
+  >
+    Данные лаб. анализов
+  </button>
+</div>

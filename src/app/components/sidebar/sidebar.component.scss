@@ -1,0 +1,27 @@
+@import "../../../vars.scss";
+
+.sidebar {
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  height: calc(100vh - 60px);
+  background-color: $bg-main;
+  border-right: 1px solid $bg-border;
+}
+
+.sidebar__users {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.sidebar__help {
+  border-top: 1px solid $bg-border;
+}
+
+.sidebar__help__icon {
+  padding: 20px;
+}

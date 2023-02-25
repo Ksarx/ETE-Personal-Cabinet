@@ -1,0 +1,31 @@
+<div class="add-modal">
+  <h2>Добавить новый виджет</h2>
+  <button
+    *ngIf="!existCards.includes('incidents')"
+    class="add-modal__item"
+    (click)="add_card('incidents')"
+  >
+    Количество инцидентов
+  </button>
+  <button
+    *ngIf="!existCards.includes('kps')"
+    class="add-modal__item"
+    (click)="add_card('kps')"
+  >
+    Показатель КПЭ
+  </button>
+  <button
+    *ngIf="!existCards.includes('events')"
+    class="add-modal__item"
+    (click)="add_card('events')"
+  >
+    Лента событий
+  </button>
+  <button
+    *ngIf="!existCards.includes('lab_tests')"
+    class="add-modal__item"
+    (click)="add_card('lab_tests')"
+  >
+    Данные лаб. анализов
+  </button>
+</div>
