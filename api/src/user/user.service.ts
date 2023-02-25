@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { WorkspaceService } from 'src/workspace/workspace.service';
 import { Workspace } from 'src/workspace/entities/workspace.entity';
+import { JwtPayload } from 'src/auth/interfaces/payload.interface';
+import { hash, compare } from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -16,12 +18,20 @@ export class UserService {
     private readonly workspaceService: WorkspaceService,
   ) {}
 
-  async create(createUserDto: CreateUserDto, id: number): Promise<User> {
-    const wp = await this.workspaceService.findOne(id);
-    return this.userRepository.save({
+  async create(dto: CreateUserDto): Promise<boolean> {
+    const wp = await this.workspaceService.findOne(dto.workspaceId);
+    const hashPass = await hash(dto.password, 10);
+    const newUser = await this.userRepository.create({
+      name: dto.name,
+      patronymic: dto.patronymic,
+      surname: dto.surname,
+      work: dto.work,
+      imageUrl: dto.imageUrl,
       workspace: wp,
-      ...createUserDto,
+      password: hashPass,
     });
+    await this.userRepository.save(newUser);
+    return true;
   }
 
   async findAll(): Promise<User[]> {
@@ -49,5 +59,14 @@ export class UserService {
       relations: ['workspace'],
     });
     return this.workspaceService.findOne((await user).workspace.id);
+  }
+
+  async findByPayload(payload: JwtPayload): Promise<User> {
+    return await this.userRepository.findOne({
+      where: {
+        id: payload.id,
+        name: payload.name,
+      },
+    });
   }
 }

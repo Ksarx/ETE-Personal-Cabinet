@@ -4,7 +4,7 @@ export interface IUserCard {
   id: number;
   title: string;
   value: string;
-  updatedAt: string;
+  updatedAt: Date;
   isNotify: boolean;
   user: IUser;
 }

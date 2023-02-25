@@ -1,6 +1,10 @@
 <nav class="sidebar">
   <div class="sidebar__users">
-    <app-user *ngFor="let user of users" [user]="user"></app-user>
+    <app-user
+      *ngFor="let user of users"
+      [user]="user"
+      (click)="openDialog(user)"
+    ></app-user>
   </div>
   <div class="sidebar__help">
     <img src="assets/svg/help.svg" class="sidebar__help__icon" alt="" />

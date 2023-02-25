@@ -38,7 +38,7 @@
     left: 20px;
     right: 20px;
   }
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid $bg-border;
@@ -50,6 +50,7 @@
     left: 20px;
     right: 20px;
   }
+  height: 30px;
   font-weight: 400;
   font-size: 12px;
   color: $control-primary-typo;
@@ -98,4 +99,16 @@
 
 .cdk-drag-placeholder {
   opacity: 0;
+}
+
+.title__block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.kpi-card__head__subtitle {
+  color: $typo-secondary;
+  font-weight: 400;
+  font-size: 14px;
 }

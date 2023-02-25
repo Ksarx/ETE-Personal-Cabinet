@@ -1,9 +1,6 @@
-import { IWorkspace } from './workspace';
-
 export interface ILabTest {
   id: number;
-  createdAt: string;
+  date: Date;
   type: string;
   value: number;
-  workspace: IWorkspace;
 }

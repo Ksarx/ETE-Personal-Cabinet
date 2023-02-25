@@ -1,0 +1,39 @@
+@import "../../../vars.scss";
+
+.modal-login {
+  border: 1px solid $bg-border;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 350px;
+  padding: 30px;
+  width: 100% !important;
+  background-color: $bg-secondary;
+  gap: 20px;
+}
+
+.modal-login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal-login__form__password {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.modal-login__title {
+  text-align: center;
+  font-size: 24px;
+}
+
+.modal-login__submit {
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 10px;
+  color: $typo-primary;
+  background-color: $control-primary-bg;
+}

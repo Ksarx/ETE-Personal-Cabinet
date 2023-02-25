@@ -1,15 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { IncidentsService } from './incidents.service';
 import { CreateIncidentDto } from './dto/create-incident.dto';
 import { Incident } from './entities/incident.entity';
+import { DatesDto } from 'src/common/dates.dto';
 
 @Controller('')
 export class IncidentsController {
@@ -26,6 +19,14 @@ export class IncidentsController {
   @Get('incidents')
   findAll(): Promise<Incident[]> {
     return this.incidentsService.findAll();
+  }
+
+  @Post('workspace/:id/incidents')
+  findBetween(
+    @Param('id') id: string,
+    @Body() dto: DatesDto,
+  ): Promise<Incident[]> {
+    return this.incidentsService.findBetween(+id, dto);
   }
 
   @Get('incidents/:id')

@@ -6,6 +6,8 @@ import { UserCard } from './entities/user-card.entity';
 import { Repository } from 'typeorm';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/user/entities/user.entity';
+import { Between } from 'typeorm';
+import { DatesDto } from 'src/common/dates.dto';
 
 @Injectable()
 export class UserCardsService {
@@ -36,6 +38,16 @@ export class UserCardsService {
       relations: ['user'],
     });
     return card;
+  }
+
+  async findBetween(id: number, dto: DatesDto): Promise<UserCard[]> {
+    const user = await this.usersService.findOne(id);
+    return this.userCardRepository.find({
+      where: {
+        user: user,
+        updatedAt: Between(dto.start, dto.end),
+      },
+    });
   }
 
   async update(id: number, updateUserCardDto: UpdateUserCardDto): Promise<any> {

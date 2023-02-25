@@ -1,19 +1,13 @@
 import { Workspace } from 'src/workspace/entities/workspace.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Incident {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn()
-  createdAt: string;
+  @Column({ type: 'date' })
+  date: Date;
 
   @Column()
   status: string;

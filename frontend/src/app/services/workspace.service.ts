@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IUser } from '../models/user';
 import { IWorkspace } from '../models/workspace';
 
 @Injectable({
@@ -11,6 +10,12 @@ export class WorkspaceService {
   constructor(private http: HttpClient) {}
 
   getWorkspaceByUserId(id: string): Observable<IWorkspace> {
-    return this.http.get<IWorkspace>('api/users/' + id + '/workspace');
+    const header = {
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${localStorage.getItem('user-token')}`
+      ),
+    };
+    return this.http.get<IWorkspace>('api/users/' + id + '/workspace', header);
   }
 }

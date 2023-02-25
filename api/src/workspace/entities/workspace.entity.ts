@@ -20,31 +20,26 @@ export class Workspace {
   users: User[];
 
   @OneToMany(() => ShiftLog, (logs) => logs.workspace, {
-    cascade: true,
     nullable: true,
   })
   shift_logs: ShiftLog[];
 
   @OneToMany(() => EventsFeed, (feed) => feed.workspace, {
-    cascade: true,
     nullable: true,
   })
   events: EventsFeed[];
 
   @OneToMany(() => Incident, (inc) => inc.workspace, {
-    cascade: true,
     nullable: true,
   })
   incidents: Incident[];
 
   @OneToMany(() => KpiIndicator, (kpi) => kpi.workspace, {
-    cascade: true,
     nullable: true,
   })
   kps: KpiIndicator[];
 
   @OneToMany(() => LabTest, (test) => test.workspace, {
-    cascade: true,
     nullable: true,
   })
   lab_tests: LabTest[];

@@ -1,14 +1,14 @@
 <div class="content">
-  <div class="main-info">
+  <div *ngIf="user; else noUser" class="main-info">
     <div class="main-info__employee">
       <div class="main-info__employee__who">
-        <img class="main-info__employee__who__avatar" [src]="user?.imageUrl" />
+        <img class="main-info__employee__who__avatar" [src]="user.imageUrl" />
         <div class="main-info__employee__who__info">
           <h2 class="main-info__employee__who__info__name">
-            {{ user?.name }} {{ user?.patronymic }} {{ user?.surname }}
+            {{ user.name }} {{ user.patronymic }} {{ user.surname }}
           </h2>
           <div class="main-info__employee__who__info__job">
-            {{ user?.work }} {{ user?.workspace?.name }}
+            {{ user.work }} {{ user.workspace.name }}
           </div>
         </div>
       </div>
@@ -21,6 +21,8 @@
         <input
           class="main-info__card-controls__switch-button__checkbox"
           type="checkbox"
+          [(ngModel)]="cards_isChecked"
+          (click)="changeCards($event)"
         />
         <label class="main-info__card-controls__switch-button__label">
           <span class="main-info__card-controls__switch-button__label__span"
@@ -33,16 +35,19 @@
       </button>
     </div>
     <div class="main-info__cards">
-      <app-card *ngFor="let card of user?.cards" [card]="card"></app-card>
+      <app-card *ngFor="let card of cards" [card]="card"></app-card>
       <app-add-user-card></app-add-user-card>
     </div>
   </div>
-  <div class="analytics">
+  <ng-template #noUser>
+    <div class="lds-dual-ring"></div>
+  </ng-template>
+  <div *ngIf="workspace; else noWorkspace" class="analytics">
     <div class="analytics__workspace">
       <div class="analytics__header">
         <div class="title-block">
           <h2 class="analytics__title">Аналитика по рабочему пространству</h2>
-          <h3 class="analytics__subtitle">Установка {{ workspace?.name }}</h3>
+          <h3 class="analytics__subtitle">Установка {{ workspace.name }}</h3>
         </div>
         <div class="settings-block">
           <button class="settings-block__setting-button">
@@ -53,39 +58,16 @@
             <img src="assets/svg/kebab.svg" alt="" />
           </button>
 
-          <button
-            (click)="this.showPortal = true"
-            class="settings-block__openInNew-button"
-          >
+          <button class="settings-block__openInNew-button">
             <img src="assets/svg/openInNew.svg" alt="" />
           </button>
         </div>
       </div>
-      <div
-        cdkDropList
-        class="analytics__workspace__cards"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div *ngFor="let card of cards">
-          <div *ngIf="workspace" [ngSwitch]="card">
-            <app-incidents-card
-              *ngSwitchCase="'incidents'"
-              [incidents]="workspace.incidents"
-            ></app-incidents-card>
-            <app-kpi-card
-              *ngSwitchCase="'kps'"
-              [kps]="workspace.kps"
-            ></app-kpi-card>
-            <app-events-card
-              *ngSwitchCase="'events'"
-              [events]="workspace.events"
-            ></app-events-card>
-            <app-lab-test-card
-              *ngSwitchCase="'lab_tests'"
-              [lab_tests]="workspace.lab_tests"
-            ></app-lab-test-card>
-          </div>
-        </div>
+      <div class="analytics__workspace__cards">
+        <app-incidents-card [workspaceId]="workspace.id"></app-incidents-card>
+        <app-kpi-card [workspaceId]="workspace.id"></app-kpi-card>
+        <app-events-card [workspaceId]="workspace.id"></app-events-card>
+        <app-lab-test-card [workspaceId]="workspace.id"></app-lab-test-card>
         <app-add-card></app-add-card>
       </div>
     </div>
@@ -93,16 +75,23 @@
       <div class="analytics__header">
         <div class="title-block">
           <h2 class="analytics__title">Журнал смен</h2>
-          <h3 class="analytics__subtitle">Блок {{ workspace?.name }}</h3>
+          <h3 class="analytics__subtitle">Блок {{ workspace.name }}</h3>
         </div>
         <div class="settings-block">
-          <button class="settings-block__setting-button">
+          <button
+            (click)="exportToExcel()"
+            class="settings-block__setting-button"
+          >
             <img src="assets/svg/upload.svg" alt="" />
             <p>Выгрузить</p>
           </button>
         </div>
       </div>
-      <table class="shift-log-table">
+      <table
+        *ngIf="workspace.shift_logs.length != 0"
+        class="shift-log-table"
+        id="shift-log"
+      >
         <tr id="column-names">
           <th>Дата выхода на смену</th>
           <th>Сотрудник</th>
@@ -120,4 +109,7 @@
       </table>
     </div>
   </div>
+  <ng-template #noWorkspace>
+    <div class="lds-dual-ring"></div>
+  </ng-template>
 </div>

@@ -1,8 +1,9 @@
 export class CreateUserDto {
   name: string;
   patronymic?: string;
+  password: string;
   surname: string;
   work: string;
   imageUrl?: string;
-  // password: string;
+  workspaceId: number;
 }

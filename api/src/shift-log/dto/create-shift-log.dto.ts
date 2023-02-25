@@ -1,7 +1,7 @@
 export class CreateShiftLogDto {
-  shift_date: string;
+  shift_date: Date;
   emplolyee: string;
   post: string;
   status: string;
-  end_date: string;
+  end_date: Date;
 }

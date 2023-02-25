@@ -10,6 +10,7 @@ import {
 import { KpiIndicatorService } from './kpi_indicator.service';
 import { CreateKpiIndicatorDto } from './dto/create-kpi_indicator.dto';
 import { KpiIndicator } from './entities/kpi_indicator.entity';
+import { DatesDto } from 'src/common/dates.dto';
 
 @Controller('')
 export class KpiIndicatorController {
@@ -31,6 +32,14 @@ export class KpiIndicatorController {
   @Get('kpi-indicators/:id')
   findOne(@Param('id') id: string): Promise<KpiIndicator> {
     return this.kpiIndicatorService.findOne(+id);
+  }
+
+  @Post('workspace/:id/kps')
+  findBetween(
+    @Param('id') id: string,
+    @Body() dto: DatesDto,
+  ): Promise<KpiIndicator[]> {
+    return this.kpiIndicatorService.findBetween(+id, dto);
   }
 
   @Delete('kpi-indicators/:id')

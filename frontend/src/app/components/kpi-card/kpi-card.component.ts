@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Chart, registerables } from 'chart.js';
 import { IKpi_indicator } from 'src/app/models/kpi_indicator';
+import { CardsService } from 'src/app/services/cards.service';
 Chart.register(...registerables);
 
 @Component({
@@ -9,12 +12,36 @@ Chart.register(...registerables);
   styleUrls: ['./kpi-card.component.scss'],
 })
 export class KpiCardComponent implements OnInit {
-  @Input() kps: IKpi_indicator[];
+  @Input() workspaceId: number;
+  kps: IKpi_indicator[] = [];
   chart: any;
+
+  range = new FormGroup({
+    start: new FormControl<Date | null>(new Date()),
+    end: new FormControl<Date | null>(new Date()),
+  });
+
+  constructor(private cardsService: CardsService) {}
+
+  dataChange(event: any) {
+    if (this.range.value.start && this.range.value.end) {
+      const dto = {
+        start: this.range.value.start,
+        end: this.range.value.end,
+      };
+      this.cardsService
+        .getKps(this.workspaceId.toString(), dto)
+        .subscribe((kps: IKpi_indicator[]) => {
+          this.kps = kps;
+          this.chart.destroy();
+          this.createChart();
+        });
+    }
+  }
 
   createChart() {
     let values = this.kps.map((k) => k.kpi);
-    let dates = this.kps.map((d) => d.createdAt.slice(5, 7));
+    let dates = this.kps.map((d) => d.date);
     this.chart = new Chart('Kpi', {
       type: 'line',
       data: {
@@ -33,6 +60,7 @@ export class KpiCardComponent implements OnInit {
         responsive: true,
         scales: {
           y: {
+            suggestedMax: 100,
             grid: {
               color: '#ffffff33',
             },
@@ -67,6 +95,17 @@ export class KpiCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createChart();
+    if (this.range.value.start && this.range.value.end) {
+      const dto = {
+        start: this.range.value.start,
+        end: this.range.value.end,
+      };
+      this.cardsService
+        .getKps(this.workspaceId.toString(), dto)
+        .subscribe((kps: IKpi_indicator[]) => {
+          this.kps = kps;
+          this.createChart();
+        });
+    }
   }
 }

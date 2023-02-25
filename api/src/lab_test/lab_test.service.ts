@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateLabTestDto } from './dto/create-lab_test.dto';
 import { LabTest } from './entities/lab_test.entity';
 import { WorkspaceService } from 'src/workspace/workspace.service';
+import { Between } from 'typeorm';
+import { LabFindDto } from './dto/lab-find.dto';
 
 @Injectable()
 export class LabTestService {
@@ -35,6 +37,17 @@ export class LabTestService {
       relations: ['workspace'],
     });
     return lab;
+  }
+
+  async findBetween(id: number, dto: LabFindDto): Promise<LabTest[]> {
+    const wp = await this.workspaceService.findOne(id);
+    return this.labTestRepository.find({
+      where: {
+        workspace: wp,
+        date: Between(dto.start, dto.end),
+        type: dto.type,
+      },
+    });
   }
 
   async remove(id: number): Promise<any> {

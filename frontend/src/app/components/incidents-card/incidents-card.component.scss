@@ -113,6 +113,7 @@
 .chart {
   max-height: 231px;
   max-width: 231px;
+  border: none;
 }
 
 .number {
@@ -179,4 +180,19 @@
 
 .cdk-drag-placeholder {
   opacity: 0;
+}
+
+.chart__sum {
+  position: relative;
+  color: $typo-secondary;
+  font-size: 12px;
+  font-weight: 400;
+  top: -60%;
+  text-align: center;
+
+  span {
+    color: $typo-primary;
+    font-weight: 700;
+    font-size: 32px;
+  }
 }

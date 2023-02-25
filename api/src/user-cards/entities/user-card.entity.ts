@@ -18,15 +18,14 @@ export class UserCard {
   @Column()
   value: string;
 
-  @UpdateDateColumn()
-  updatedAt: string;
+  @Column({ type: 'timestamp' })
+  updatedAt: Date;
 
   @Column()
   isNotify: boolean;
 
   @ManyToOne(() => User, (user) => user.cards, {
     onDelete: 'CASCADE',
-    nullable: true,
     deferrable: 'INITIALLY DEFERRED',
   })
   user: User;

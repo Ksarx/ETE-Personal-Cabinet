@@ -11,13 +11,15 @@ import { IncidentsModule } from './incidents/incidents.module';
 import { KpiIndicatorModule } from './kpi_indicator/kpi_indicator.module';
 import { EventsFeedModule } from './events_feed/events_feed.module';
 import { LabTestModule } from './lab_test/lab_test.module';
+import { AuthModule } from './auth/auth.module';
+import { DB_URL } from './config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DB_URL,
+      url: DB_URL,
       autoLoadEntities: true,
       synchronize: true,
     }),
@@ -29,6 +31,7 @@ import { LabTestModule } from './lab_test/lab_test.module';
     KpiIndicatorModule,
     EventsFeedModule,
     LabTestModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

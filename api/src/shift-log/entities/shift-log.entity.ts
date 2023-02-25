@@ -6,8 +6,8 @@ export class ShiftLog {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'timestamptz' })
-  shift_date: string;
+  @Column({ type: 'date' })
+  shift_date: Date;
 
   @Column()
   employee: string;
@@ -18,8 +18,8 @@ export class ShiftLog {
   @Column()
   status: string;
 
-  @Column({ type: 'timestamptz' })
-  end_date: string;
+  @Column({ type: 'date' })
+  end_date: Date;
 
   @ManyToOne(() => Workspace, (workspace) => workspace.shift_logs)
   workspace: Workspace;

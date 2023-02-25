@@ -1,11 +1,25 @@
 <div class="events-card" cdkDrag>
   <div class="events-card__head">
-    <h3 class="events-card__head__title">Лента событий</h3>
+    <div class="title__block">
+      <h3 class="events-card__head__title">Лента событий</h3>
+      <h4 class="events-card__head__subtitle">Все заведения</h4>
+    </div>
     <button class="drag-button" cdkDragHandle>
       <img src="assets/svg/draggable.svg" alt="" />
     </button>
   </div>
   <div class="events-card__service">
+    <div class="events-switch-button">
+      <input
+        class="events-switch-button__checkbox"
+        type="checkbox"
+        [(ngModel)]="isChecked"
+        (click)="changeEvents($event)"
+      />
+      <label class="events-switch-button__label">
+        <span class="events-switch-button__label__span">День</span></label
+      >
+    </div>
     <button class="more-button">Подробнее</button>
   </div>
   <div class="events-card__feed">
@@ -13,7 +27,7 @@
       <h4 class="title">{{ item.description }}</h4>
       <div class="subtitle">
         <p class="sb">{{ item.where }}</p>
-        <p class="sb">{{ item.createdAt.slice(0, 10) }}</p>
+        <p class="sb">{{ item.date }}</p>
       </div>
     </div>
   </div>

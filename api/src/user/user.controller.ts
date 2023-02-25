@@ -6,36 +6,31 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Workspace } from 'src/workspace/entities/workspace.entity';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller('')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('/workspaces/:id/users')
-  create(
-    @Body() createUserDto: CreateUserDto,
-    @Param('id') workspaceId: number,
-  ): Promise<User> {
-    return this.userService.create(createUserDto, workspaceId);
-  }
-
-  @Get('users')
+  @Get('')
   findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
-  @Get('users/:id')
+  @UseGuards(AuthGuard('jwt'))
+  @Get(':id')
   findOne(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(+id);
   }
 
-  @Patch('users/:id')
+  @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -43,12 +38,13 @@ export class UserController {
     return this.userService.update(+id, updateUserDto);
   }
 
-  @Delete('users/:id')
+  @Delete(':id')
   remove(@Param('id') id: string): Promise<User> {
     return this.userService.remove(+id);
   }
 
-  @Get('users/:id/workspace')
+  @UseGuards(AuthGuard('jwt'))
+  @Get(':id/workspace')
   findUserWorkspace(@Param('id') id: string): Promise<Workspace> {
     return this.userService.findUserWorkspace(+id);
   }

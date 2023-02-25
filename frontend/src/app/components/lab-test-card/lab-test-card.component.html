@@ -6,11 +6,22 @@
     </button>
   </div>
   <div class="lab-card__service">
+    <div class="drop-list">
+      <mat-form-field appearance="outline">
+        <mat-select
+          [(value)]="selected"
+          (selectionChange)="changeTests($event)"
+        >
+          <mat-option value="option1">Расход</mat-option>
+          <mat-option value="option2">Затраты</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <button class="more-button">Подробнее</button>
   </div>
   <div class="lab-card__chart">
     <div class="chart">
-      <canvas id="Lab">{{ chart }}</canvas>
+      <canvas id="Lab" class="chart_style">{{ chart }}</canvas>
     </div>
     <p class="chart-legend">Месяц</p>
   </div>

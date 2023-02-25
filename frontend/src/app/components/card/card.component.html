@@ -3,7 +3,7 @@
     <p class="card__main__title">
       {{ card.title }}
     </p>
-    <div class="card__main__circle-progress">
+    <div class="card__main__circle-progress" [style.background]="degStyle">
       <span class="progress-value">{{ card.value }}</span>
     </div>
   </div>

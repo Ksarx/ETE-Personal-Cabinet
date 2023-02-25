@@ -10,14 +10,29 @@
       <input
         type="radio"
         id="radio-1"
-        name="switch-three"
+        name="incidents_sw"
         value="day"
-        checked="checked"
+        [ngModel]="mode"
+        (click)="changeDay($event)"
       />
       <label for="radio-1">День</label>
-      <input type="radio" id="radio-2" name="switch-three" value="week" />
+      <input
+        type="radio"
+        id="radio-2"
+        name="incidents_sw"
+        value="week"
+        [ngModel]="mode"
+        (click)="changeWeek($event)"
+      />
       <label for="radio-2">Неделя</label>
-      <input type="radio" id="radio-3" name="switch-three" value="month" />
+      <input
+        type="radio"
+        id="radio-3"
+        name="incidents_sw"
+        value="month"
+        [ngModel]="mode"
+        (click)="changeMonth($event)"
+      />
       <label for="radio-3">Месяц</label>
     </div>
     <button class="more-button">Подробнее</button>
@@ -25,6 +40,10 @@
   <div class="incidents-card__chart">
     <div class="chart">
       <canvas id="Incidents">{{ chart }}</canvas>
+      <p class="chart__sum">
+        Всего <br />
+        <span>{{ incidents.length }}</span>
+      </p>
     </div>
     <div class="legend">
       <div class="legend__item">

@@ -1,8 +1,5 @@
-import { IWorkspace } from './workspace';
-
 export interface IKpi_indicator {
   id: number;
-  createdAt: string;
+  date: Date;
   kpi: number;
-  workspace: IWorkspace;
 }

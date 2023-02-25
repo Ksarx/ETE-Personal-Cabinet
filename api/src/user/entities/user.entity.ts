@@ -6,7 +6,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  BeforeInsert,
 } from 'typeorm';
+import { hash, compare } from 'bcrypt';
 
 @Entity()
 export class User {
@@ -35,8 +37,10 @@ export class User {
   workspace: Workspace;
 
   @OneToMany(() => UserCard, (user_card) => user_card.user, {
-    cascade: true,
     nullable: true,
   })
   cards: UserCard[];
+
+  @Column({ type: 'varchar' })
+  password: string;
 }

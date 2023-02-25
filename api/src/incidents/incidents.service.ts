@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateIncidentDto } from './dto/create-incident.dto';
 import { Repository } from 'typeorm';
+import { Between } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Incident } from './entities/incident.entity';
 import { WorkspaceService } from 'src/workspace/workspace.service';
+import { DatesDto } from 'src/common/dates.dto';
 
 @Injectable()
 export class IncidentsService {
@@ -27,6 +29,16 @@ export class IncidentsService {
 
   async findAll(): Promise<Incident[]> {
     return this.incidentRepository.find({ relations: ['workspace'] });
+  }
+
+  async findBetween(id: number, dto: DatesDto): Promise<Incident[]> {
+    const wp = await this.workspaceService.findOne(id);
+    return this.incidentRepository.find({
+      where: {
+        workspace: wp,
+        date: Between(dto.start, dto.end),
+      },
+    });
   }
 
   async findOne(id: number): Promise<Incident> {

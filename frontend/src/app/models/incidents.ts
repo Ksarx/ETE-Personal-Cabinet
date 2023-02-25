@@ -1,8 +1,5 @@
-import { IWorkspace } from './workspace';
-
 export interface IIncident {
   id: number;
-  createdAt: string;
+  date: Date;
   status: string;
-  workspace: IWorkspace;
 }
