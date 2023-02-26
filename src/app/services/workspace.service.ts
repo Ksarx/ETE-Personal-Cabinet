@@ -19,7 +19,7 @@ export class WorkspaceService {
       ),
     };
     return this.http.get<WorkData>(
-      BASE_API_URL + 'users/' + id + '/workspace',
+      BASE_API_URL + '/users/' + id + '/workspace',
       header
     );
   }
