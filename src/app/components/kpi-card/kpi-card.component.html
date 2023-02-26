@@ -43,7 +43,7 @@
   </div>
   <div class="kpi-card__chart">
     <div>
-      <canvas class="chart" id="Kpi">{{ chart }}</canvas>
+      <canvas class="chart" [id]="'Kpi' + randId">{{ chart }}</canvas>
     </div>
     <p class="chart-legend">Месяц</p>
   </div>

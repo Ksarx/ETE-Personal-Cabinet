@@ -2,7 +2,21 @@
   <div *ngIf="user; else noUser" class="main-info">
     <div class="main-info__employee">
       <div class="main-info__employee__who">
-        <img class="main-info__employee__who__avatar" [src]="user.imageUrl" />
+        <img
+          *ngIf="user.imageUrl; else noAvatar"
+          class="main-info__employee__who__avatar"
+          [src]="user.imageUrl"
+        />
+        <ng-template #noAvatar>
+          <div
+            class="main-info__employee__who__avatar"
+            [ngStyle]="{
+              backgroundColor: colorAvatar
+            }"
+          >
+            {{ user.name.slice(0, 1) }}{{ user.patronymic.slice(0, 1) }}
+          </div>
+        </ng-template>
         <div class="main-info__employee__who__info">
           <h2 class="main-info__employee__who__info__name">
             {{ user.name }} {{ user.patronymic }} {{ user.surname }}
@@ -12,9 +26,21 @@
           </div>
         </div>
       </div>
-      <button class="main-info__employee__shift-in-button">
-        Заступить на смену
+      <button
+        *ngIf="!shift_status; else shiftOut"
+        class="main-info__employee__button shift-in"
+        (click)="startShift()"
+      >
+        Заступить смену
       </button>
+      <ng-template #shiftOut>
+        <button
+          class="main-info__employee__button shift-out"
+          (click)="openShiftStatus()"
+        >
+          Закончить смену
+        </button>
+      </ng-template>
     </div>
     <div class="main-info__card-controls">
       <div class="main-info__card-controls__switch-button">
@@ -62,7 +88,10 @@
             <img src="assets/svg/kebab.svg" alt="" />
           </button>
 
-          <button class="settings-block__openInNew-button">
+          <button
+            class="settings-block__openInNew-button"
+            (click)="openInNewWindow()"
+          >
             <img src="assets/svg/openInNew.svg" alt="" />
           </button>
         </div>
@@ -74,6 +103,7 @@
             *ngSwitchCase="'incidents'"
           ></app-incidents-card>
           <app-kpi-card
+            (warning)="receiveWarning($event)"
             [workspaceId]="workspace.id"
             *ngSwitchCase="'kps'"
           ></app-kpi-card>
@@ -82,6 +112,7 @@
             *ngSwitchCase="'events'"
           ></app-events-card>
           <app-lab-test-card
+            (warning)="receiveWarning($event)"
             [workspaceId]="workspace.id"
             *ngSwitchCase="'lab_tests'"
           ></app-lab-test-card>
@@ -131,3 +162,76 @@
     <div class="lds-dual-ring"></div>
   </ng-template>
 </div>
+
+<window *ngIf="show_window">
+  <div class="content">
+    <div *ngIf="workspace; else noWorkspace" class="analytics">
+      <div class="analytics__workspace">
+        <div class="analytics__header">
+          <div class="title-block">
+            <h2 class="analytics__title">Аналитика по рабочему пространству</h2>
+            <h3 class="analytics__subtitle">Установка {{ workspace.name }}</h3>
+          </div>
+        </div>
+        <div class="analytics__workspace__cards">
+          <div *ngFor="let card of active_cards" [ngSwitch]="card">
+            <app-incidents-card
+              [workspaceId]="workspace.id"
+              *ngSwitchCase="'incidents'"
+            ></app-incidents-card>
+            <app-kpi-card
+              (warning)="receiveWarning($event)"
+              [workspaceId]="workspace.id"
+              *ngSwitchCase="'kps'"
+            ></app-kpi-card>
+            <app-events-card
+              [workspaceId]="workspace.id"
+              *ngSwitchCase="'events'"
+            ></app-events-card>
+            <app-lab-test-card
+              (warning)="receiveWarning($event)"
+              [workspaceId]="workspace.id"
+              *ngSwitchCase="'lab_tests'"
+            ></app-lab-test-card>
+          </div>
+        </div>
+      </div>
+      <div class="analytics__shift-log">
+        <div class="analytics__header">
+          <div class="title-block">
+            <h2 class="analytics__title">Журнал смен</h2>
+            <h3 class="analytics__subtitle">Блок {{ workspace.name }}</h3>
+          </div>
+          <div class="settings-block">
+            <button
+              (click)="exportToExcel()"
+              class="settings-block__setting-button"
+            >
+              <img src="assets/svg/upload.svg" alt="" />
+              <p>Выгрузить</p>
+            </button>
+          </div>
+        </div>
+        <table class="shift-log-table" id="shift-log">
+          <tr id="column-names">
+            <th>Дата выхода на смену</th>
+            <th>Сотрудник</th>
+            <th>Должность</th>
+            <th>Статус</th>
+            <th>Дата завершения</th>
+          </tr>
+          <tr *ngFor="let row of workspace?.shift_logs">
+            <td>{{ row.shift_date }}</td>
+            <td>{{ row.employee }}</td>
+            <td>{{ row.post }}</td>
+            <td>{{ row.status }}</td>
+            <td>{{ row.end_date }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <ng-template #noWorkspace>
+      <div class="lds-dual-ring"></div>
+    </ng-template>
+  </div>
+</window>

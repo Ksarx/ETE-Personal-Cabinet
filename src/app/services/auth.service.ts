@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { catchError, map } from 'rxjs';
 import { BASE_API_URL } from 'src/common/constants';
 
 @Injectable({

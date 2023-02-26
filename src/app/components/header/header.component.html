@@ -1,7 +1,17 @@
 <nav class="header">
   <a class="header__title" [routerLink]="['']"> Личный кабинет ИТР </a>
   <div class="header__buttons">
-    <img class="header__buttons__icon" src="assets/svg/bell.svg" />
+    <div class="icon-with-badge">
+      <img class="header__buttons__icon" src="assets/svg/bell.svg" />
+      <div
+        *ngIf="messages.length != 0"
+        class="icon-badge"
+        (click)="openDialog()"
+        [ngStyle]="{ cursor: messages.length != 0 ? 'pointer' : '' }"
+      >
+        {{ messages.length }}
+      </div>
+    </div>
     <img class="header__buttons__icon" src="assets/svg/bento.svg" />
   </div>
 </nav>

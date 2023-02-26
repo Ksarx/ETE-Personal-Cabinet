@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { ILabTest } from 'src/app/models/lab_test';
 import { CardsService } from 'src/app/services/cards.service';
@@ -16,17 +23,46 @@ export class LabTestCardComponent implements OnInit {
   lab_tests: ILabTest[] = [];
   chart: any;
   selected = 'option1';
+  @Output() warning = new EventEmitter<string>();
+  randId: string;
 
   constructor(private cardsService: CardsService) {}
 
   createChart() {
-    let values = this.lab_tests.map((k) => k.value);
+    let values = this.lab_tests.map((k) => {
+      if (k.value >= 90) {
+        this.warning.emit('Опасность: Превышены показатели лаб. анализов');
+      } else if (k.value <= 60) {
+        this.warning.emit(
+          'Предупреждение: Пониженные показатели лаб. анализов'
+        );
+      }
+      return k.value;
+    });
     let dates = this.lab_tests.map((d) => d.date.toString().slice(5, 7));
-    this.chart = new Chart('Lab', {
+    this.chart = new Chart('Lab' + this.randId, {
       type: 'bar',
       data: {
         labels: dates,
         datasets: [
+          {
+            label: 'Опасность',
+            data: Array(values.length).fill(90),
+            backgroundColor: '#22272B',
+            borderColor: '#f73b3b',
+            borderWidth: 2,
+            borderDash: [1, 3],
+            type: 'line',
+          },
+          {
+            label: 'Предупреждение',
+            data: Array(values.length).fill(60),
+            backgroundColor: '#22272B',
+            borderColor: '#F38B01',
+            borderWidth: 2,
+            borderDash: [1, 3],
+            type: 'line',
+          },
           {
             label: 'Количество инцидентов',
             data: values,
@@ -39,6 +75,11 @@ export class LabTestCardComponent implements OnInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        elements: {
+          point: {
+            radius: 0,
+          },
+        },
         scales: {
           y: {
             suggestedMax: 100,
@@ -71,6 +112,7 @@ export class LabTestCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.randId = Math.floor(Math.random() * 10000).toString();
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -108,7 +150,7 @@ export class LabTestCardComponent implements OnInit {
       const dto = {
         start: fiveMonths,
         end: tomorrow,
-        type: 'Затраты',
+        type: 'Восход',
       };
       this.cardsService
         .getTests(this.workspaceId.toString(), dto)

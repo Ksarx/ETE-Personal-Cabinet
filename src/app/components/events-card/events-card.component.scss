@@ -62,6 +62,7 @@
   max-height: 291px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .events-card__feed__item {

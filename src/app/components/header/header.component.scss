@@ -27,9 +27,27 @@
 .header__buttons {
   display: flex;
   column-gap: 28px;
+  align-items: center;
 }
 
 .header__buttons__icon {
   height: 14px;
   width: 14px;
+}
+
+.icon-with-badge {
+  position: relative;
+}
+
+.icon-badge {
+  background-color: red;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 35%;
+  position: absolute; /* changed */
+  top: -5px; /* changed */
+  left: 18px; /* changed */
 }

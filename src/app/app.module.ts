@@ -29,6 +29,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AddCardModalComponent } from './components/add-card-modal/add-card-modal.component';
 import { DeleteCardsModalComponent } from './components/delete-cards-modal/delete-cards-modal.component';
 import { AddUserCardModalComponent } from './components/add-user-card-modal/add-user-card-modal.component';
+import { NotificationsModalComponent } from './components/notifications-modal/notifications-modal.component';
+import { NotifyMeModalComponent } from './components/notify-me-modal/notify-me-modal.component';
+import { ShiftStatusModalComponent } from './components/shift-status-modal/shift-status-modal.component';
+import { WindowComponent } from './components/window/window.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,10 @@ import { AddUserCardModalComponent } from './components/add-user-card-modal/add-
     AddCardModalComponent,
     DeleteCardsModalComponent,
     AddUserCardModalComponent,
+    NotificationsModalComponent,
+    NotifyMeModalComponent,
+    ShiftStatusModalComponent,
+    WindowComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +72,7 @@ import { AddUserCardModalComponent } from './components/add-user-card-modal/add-
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
+    PortalModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

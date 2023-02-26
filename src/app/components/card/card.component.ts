@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Chart, registerables } from 'chart.js';
 import { IUserCard } from 'src/app/models/user-card';
+import { NotificationService } from 'src/app/services/notification.service';
+import { NotifyMeModalComponent } from '../notify-me-modal/notify-me-modal.component';
 Chart.register(...registerables);
 
 @Component({
@@ -11,6 +14,11 @@ Chart.register(...registerables);
 export class CardComponent implements OnInit {
   @Input() card: IUserCard;
   degStyle: string;
+
+  constructor(
+    private dialogRef: MatDialog,
+    private notifService: NotificationService
+  ) {}
 
   calcChart() {
     if (this.card.value.includes('/')) {
@@ -36,5 +44,14 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
     this.calcChart();
+  }
+
+  openDialog() {
+    const dialog = this.dialogRef.open(NotifyMeModalComponent);
+    dialog.afterClosed().subscribe((data: number) => {
+      if (data) {
+        this.notifService.notifyMeAfter(data);
+      }
+    });
   }
 }

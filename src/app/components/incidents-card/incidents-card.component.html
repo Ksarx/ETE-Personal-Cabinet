@@ -39,7 +39,7 @@
   </div>
   <div class="incidents-card__chart">
     <div class="chart">
-      <canvas id="Incidents">{{ chart }}</canvas>
+      <canvas [id]="'Incidents' + randId">{{ chart }}</canvas>
       <p class="chart__sum">
         Всего <br />
         <span>{{ incidents.length }}</span>

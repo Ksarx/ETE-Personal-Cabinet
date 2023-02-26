@@ -1,0 +1,12 @@
+<div class="notifications">
+  <h1>Уведомления</h1>
+  <div class="notification-item" *ngFor="let message of messages">
+    <p
+      [ngStyle]="{
+        color: message.includes('Предупреждение') ? '#f38b01' : '#f73b3b'
+      }"
+    >
+      {{ message }}
+    </p>
+  </div>
+</div>
