@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { IUser } from 'src/app/models/user';
 import { UsersService } from 'src/app/services/users.service';
@@ -15,12 +16,18 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private router: Router
   ) {}
 
   openDialog(user: IUser) {
-    this.dialogRef.open(LoginComponent, {
+    const modal = this.dialogRef.open(LoginComponent, {
       data: user,
+    });
+    modal.afterClosed().subscribe((id: number) => {
+      if (id) {
+        this.router.navigate(['/users', id]);
+      }
     });
   }
 

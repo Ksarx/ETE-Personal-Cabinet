@@ -23,10 +23,12 @@ import { IncidentCardComponent } from 'src/app/components/incidents-card/inciden
 import { KpiCardComponent } from 'src/app/components/kpi-card/kpi-card.component';
 import { EventsCardComponent } from 'src/app/components/events-card/events-card.component';
 import { LabTestCardComponent } from 'src/app/components/lab-test-card/lab-test-card.component';
-import { Item } from './workspace.item';
 import { WorkData } from 'src/app/models/work-data';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteCardsModalComponent } from 'src/app/components/delete-cards-modal/delete-cards-modal.component';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ShiftLogService } from 'src/app/services/shift-log.service';
+import { ShiftStatusModalComponent } from 'src/app/components/shift-status-modal/shift-status-modal.component';
 
 @Component({
   selector: 'app-user-page',
@@ -41,13 +43,28 @@ export class UserPageComponent implements OnInit {
   cards_isChecked = false;
 
   active_cards: string[] = [];
+  colors = ['#F56B00', '#C62828', '#E92064', '#03fca1', '#fcce03'];
+  colorAvatar: string;
+
+  shift_status = false;
+  show_window = false;
+
+  getColor() {
+    return this.colors[Math.floor(Math.random() * this.colors.length)];
+  }
 
   constructor(
     private workspaceService: WorkspaceService,
     private route: ActivatedRoute,
     private cardsService: CardsService,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private notifService: NotificationService,
+    private shiftLogService: ShiftLogService
   ) {}
+
+  receiveWarning(warning: string) {
+    this.notifService.addNotify(warning);
+  }
 
   changeCards(event: any) {
     const today = new Date();
@@ -97,6 +114,7 @@ export class UserPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.colorAvatar = this.getColor();
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -110,12 +128,22 @@ export class UserPageComponent implements OnInit {
         .subscribe((data: WorkData) => {
           this.workspace = data.workspace;
           this.user = data.user;
+          this.shiftLogService.startedShiftLog.subscribe((shifts) => {
+            if (shifts.find((o) => o.userId === data.user.id)) {
+              this.shift_status = true;
+            } else {
+              this.shift_status = false;
+            }
+          });
         });
       this.cardsService
         .getUserCards(params['id'], dto)
         .subscribe((cards: IUserCard[]) => {
           this.cards = cards;
         });
+      this.workspaceService.currentActive.subscribe((data) => {
+        this.active_cards = data;
+      });
     });
   }
 
@@ -128,7 +156,20 @@ export class UserPageComponent implements OnInit {
     XLSX.writeFile(wb, 'Журнал смен.xlsx');
   }
 
-  // drop(event: CdkDragDrop<string[]>) {
-  //   moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
-  // }
+  startShift() {
+    this.shiftLogService.addShiftLog(this.user);
+  }
+
+  openShiftStatus() {
+    const dialog = this.dialogRef.open(ShiftStatusModalComponent);
+    dialog.afterClosed().subscribe((result: string) => {
+      if (result) {
+        this.shiftLogService.endShift(this.user.id, this.workspace.id, result);
+      }
+    });
+  }
+
+  openInNewWindow() {
+    this.show_window = !this.show_window;
+  }
 }

@@ -12,6 +12,8 @@
       Последнее обновление<br />
       в {{ card.updatedAt.toString().slice(11, 16) }}
     </p>
-    <button *ngIf="card.isNotify" class="notify">Напомнить</button>
+    <button *ngIf="card.isNotify" class="notify" (click)="openDialog()">
+      Напомнить
+    </button>
   </div>
 </div>

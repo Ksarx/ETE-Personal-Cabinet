@@ -1,0 +1,22 @@
+@import "../../../vars.scss";
+
+.notifications {
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  background-color: $bg-secondary;
+  h1 {
+    font-size: 20px;
+  }
+}
+
+.notification-item {
+  padding: 2%;
+  background-color: $bg-main;
+  border: 1px solid $bg-border;
+  border-radius: 5px;
+  font-size: 14px;
+}

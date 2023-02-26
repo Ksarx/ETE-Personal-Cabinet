@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Chart, registerables } from 'chart.js';
@@ -15,6 +22,8 @@ export class KpiCardComponent implements OnInit {
   @Input() workspaceId: number;
   kps: IKpi_indicator[] = [];
   chart: any;
+  @Output() warning = new EventEmitter<string>();
+  randId: string;
 
   range = new FormGroup({
     start: new FormControl<Date | null>(new Date()),
@@ -40,9 +49,14 @@ export class KpiCardComponent implements OnInit {
   }
 
   createChart() {
-    let values = this.kps.map((k) => k.kpi);
+    let values = this.kps.map((k) => {
+      if (k.kpi <= 35) {
+        this.warning.emit('Предупреждение: Малый показатель КПЭ');
+      }
+      return k.kpi;
+    });
     let dates = this.kps.map((d) => d.date.toString().slice(5, 7));
-    this.chart = new Chart('Kpi', {
+    this.chart = new Chart('Kpi' + this.randId, {
       type: 'line',
       data: {
         labels: dates,
@@ -53,6 +67,14 @@ export class KpiCardComponent implements OnInit {
             backgroundColor: '#22272B',
             borderColor: '#90DDFF',
             borderWidth: 1,
+          },
+          {
+            label: 'Предупреждение',
+            data: Array(values.length).fill(35),
+            backgroundColor: '#22272B',
+            borderColor: '#F38B01',
+            borderWidth: 1,
+            borderDash: [1, 3],
           },
         ],
       },
@@ -95,6 +117,7 @@ export class KpiCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.randId = Math.floor(Math.random() * 10000).toString();
     if (this.range.value.start && this.range.value.end) {
       const dto = {
         start: this.range.value.start,

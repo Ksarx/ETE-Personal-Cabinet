@@ -23,6 +23,7 @@ export class IncidentCardComponent implements OnInit {
   incidents: IIncident[] = [];
   chart: any;
   mode = 'day';
+  randId: string;
 
   changeDay(event: any) {
     const today = new Date();
@@ -35,10 +36,10 @@ export class IncidentCardComponent implements OnInit {
       .getIncidents(this.workspaceId.toString(), dto)
       .subscribe((incidents: IIncident[]) => {
         this.incidents = incidents;
+        this.mode = 'day';
+        this.chart.destroy();
+        this.createChart();
       });
-    this.mode = 'day';
-    this.chart.destroy();
-    this.createChart();
   }
   changeWeek(event: any) {
     const today = new Date();
@@ -57,10 +58,10 @@ export class IncidentCardComponent implements OnInit {
       .getIncidents(this.workspaceId.toString(), dto)
       .subscribe((incidents: IIncident[]) => {
         this.incidents = incidents;
+        this.mode = 'week';
+        this.chart.destroy();
+        this.createChart();
       });
-    this.mode = 'week';
-    this.chart.destroy();
-    this.createChart();
   }
   changeMonth(event: any) {
     const today = new Date();
@@ -79,13 +80,14 @@ export class IncidentCardComponent implements OnInit {
       .getIncidents(this.workspaceId.toString(), dto)
       .subscribe((incidents: IIncident[]) => {
         this.incidents = incidents;
+        this.mode = 'month';
+        this.chart.destroy();
+        this.createChart();
       });
-    this.mode = 'month';
-    this.chart.destroy();
-    this.createChart();
   }
 
   ngOnInit(): void {
+    this.randId = Math.floor(Math.random() * 10000).toString();
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -102,7 +104,7 @@ export class IncidentCardComponent implements OnInit {
   }
 
   createChart() {
-    this.chart = new Chart('Incidents', {
+    this.chart = new Chart('Incidents' + this.randId, {
       type: 'doughnut',
 
       data: {

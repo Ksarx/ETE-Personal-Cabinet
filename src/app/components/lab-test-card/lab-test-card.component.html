@@ -13,7 +13,7 @@
           (selectionChange)="changeTests($event)"
         >
           <mat-option value="option1">Расход</mat-option>
-          <mat-option value="option2">Затраты</mat-option>
+          <mat-option value="option2">Восход</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -21,7 +21,7 @@
   </div>
   <div class="lab-card__chart">
     <div class="chart">
-      <canvas id="Lab" class="chart_style">{{ chart }}</canvas>
+      <canvas [id]="'Lab' + randId" class="chart_style">{{ chart }}</canvas>
     </div>
     <p class="chart-legend">Месяц</p>
   </div>

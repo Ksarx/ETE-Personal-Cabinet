@@ -3,13 +3,12 @@
   <form class="modal-login__form">
     <input
       [(ngModel)]="password"
-      class="modal-login__form__password"
+      class="text-field__input"
       type="password"
       name="pass"
       placeholder="Введите пароль"
     />
-    <button (click)="login()" class="modal-login__submit" mat-dialog-close>
-      Вход
-    </button>
+    <p>{{ error }}</p>
+    <button (click)="login()" class="modal-login__submit">Вход</button>
   </form>
 </div>
